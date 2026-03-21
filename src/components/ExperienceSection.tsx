@@ -2,19 +2,28 @@ import { Briefcase, Calendar } from 'lucide-react';
 
 const experiences = [
   {
-    role: 'Senior .NET Developer',
-    company: 'Tech Innovations AB',
-    period: '2022 - Present',
-    description: 'Leading development of cloud-native microservices architecture. Mentoring junior developers and driving technical excellence.',
-    achievements: ['Reduced deployment time by 70%', 'Led migration to Kubernetes', 'Implemented event-driven architecture'],
-  },
+  role: '.NET Developer',
+  company: 'Digital Engine AB',
+  period: '2025 Dec - 2026 April',
+  description: 'Developed automation solutions using C# within a cloud-based platform. Built and orchestrated task-based workflows for data processing and system integration.',
+  achievements: [
+    'Implemented custom commands for data transformation and API integrations',
+    'Built end-to-end automation flow from Excel to JSON to external API',
+    'Designed batch processing to handle large datasets efficiently',
+    'Improved data quality through validation and filtering logic'
+  ],
+},
   {
-    role: '.NET Developer',
-    company: 'Digital Solutions Nordic',
-    period: '2020 - 2022',
-    description: 'Full-stack development of enterprise applications using ASP.NET Core and Azure services.',
-    achievements: ['Built real-time analytics dashboard', 'Optimized database performance by 50%', 'Introduced automated testing'],
-  },
+  role: 'Webbutvecklare .NET Student',
+  company: 'Nackademin',
+  period: '2024 - 2026',
+  description: 'Focused on backend development with C# and .NET, including APIs, databases, and web applications.',
+  achievements: [
+    'Built REST APIs using ASP.NET Core',
+    'Worked with SQL Server and Entity Framework',
+    'Developed full-stack applications with modern web technologies'
+  ],
+},
   {
     role: 'Junior Developer',
     company: 'StartupHub Stockholm',
@@ -25,9 +34,9 @@ const experiences = [
 ];
 
 const certifications = [
-  { name: 'Azure Solutions Architect Expert', issuer: 'Microsoft', year: '2023' },
-  { name: 'Azure Developer Associate', issuer: 'Microsoft', year: '2022' },
-  { name: 'Kubernetes Administrator', issuer: 'CNCF', year: '2022' },
+  { name: 'TBD', issuer: 'TBD', year: 'TBD' },
+  { name: 'TBD', issuer: 'TBD', year: 'TBD' },
+  { name: 'TBD', issuer: 'TBD', year: 'TBD' },
 ];
 
 const ExperienceSection = () => {
@@ -91,7 +100,7 @@ const ExperienceSection = () => {
           </div>
 
           {/* Certifications */}
-          <div>
+          <div >
             <h3 className="font-display text-xl font-bold mb-6 flex items-center gap-2">
               <Briefcase className="text-primary" size={20} />
               Certifications
