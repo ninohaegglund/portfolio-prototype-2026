@@ -50,7 +50,7 @@ const HeroSection = () => {
               View My Work
               <ArrowRight className="ml-2" />
             </Button>
-            <Button variant="heroOutline" size="xl"  onClick={() => window.open('public/Nino_Hägglund_Webbutvecklare_NET.pdf', '_blank')}>
+            <Button variant="heroOutline" size="xl"  onClick={() => window.open('/Nino_Hägglund_Webbutvecklare_NET.pdf', '_blank')}>
               <Download className="mr-2" />
               Download CV
             </Button>
