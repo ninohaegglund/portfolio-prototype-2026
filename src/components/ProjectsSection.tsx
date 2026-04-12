@@ -5,14 +5,18 @@ import { ExternalLink, Github, ArrowRight } from 'lucide-react';
 const projects = [
   {
     id: 1,
-    title: 'Ventixe Microservices Platform',
-    description: 'Scalable microservices architecture handling 10M+ daily transactions with 99.99% uptime.',
-    image: '/images/ventixe.png',
-    category: 'Backend',
-    tags: ['ASP.NET Core', 'Azure', 'Microservices', 'React', "Azure Service Bus"],
-    outcomes: ['40% latency reduction', '99.99% uptime', '10M+ daily transactions'],
-    github: 'https://github.com/orgs/Grupp-4-Ventixe/repositories',
-    live: 'https://github.com/orgs/Grupp-4-Ventixe/repositories',
+    title: 'PC Builder',
+    description: 'Ongoing Full-stack ASP.NET Core application for building custom PCs, managing customer orders, and connecting an MVC frontend with backend APIs.',
+    image: '/images/pcbuilder.png',
+    category: 'Full Stack',
+    tags: ['ASP.NET Core', 'MVC', 'Web API', 'Entity Framework Core', 'SQL Server', 'C#', 'Bootstrap'],
+    outcomes: [
+      'Built CRUD flows for computers, orders, and customers',
+      'Integrated MVC frontend with backend APIs',
+      'Worked with DTOs, validation, mapping, and database relations'
+    ],
+    github: 'https://github.com/ninohaegglund/PCBuilder',
+    live: '#',
   },
   {
     id: 2,
