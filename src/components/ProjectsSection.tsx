@@ -45,6 +45,60 @@ const projects: Project[] = [
     ]
   }
   },
+    {
+  id: 5,
+  title: 'E-Commerce Microservices Platform',
+  description: 'A full-stack e-commerce application built with a microservices architecture. The system includes product catalog, shopping cart, identity, orders, checkout, and a payment service prepared for Stripe integration.',
+  image: '/images/ecommerce.png',
+  category: 'Full Stack',
+  tags: [
+    'C#',
+    'ASP.NET Core',
+    'Microservices',
+    'REST API',
+    'Entity Framework Core',
+    'SQL Server',
+    'Identity',
+    'Stripe',
+    'React'
+  ],
+  outcomes: [
+    'Built an end-to-end e-commerce flow from product selection to checkout',
+    'Implemented separate services for catalog, cart, identity, orders, and payments',
+    'Prepared payment service architecture for future Stripe integration'
+  ],
+  github: 'https://github.com/ninohaegglund/ECommerce-platform',
+  live: 'https://github.com/ninohaegglund/ECommerce-platform-client',
+  caseStudy: {
+    problem: 'E-commerce systems often involve several separate business areas such as product management, user identity, shopping cart, orders, checkout, and payments. The goal was to build a system where these responsibilities are separated into independent services instead of one large monolithic application.',
+    solution: 'We built a full-stack e-commerce application using a microservices-based architecture. Each main business area is handled by its own API, including Catalog API, Order API, Identity API, Product/Cart API, and Payment Service API. The frontend connects these services into one user flow where a customer can select products, add them to the cart, continue to checkout, enter required information, and proceed to the payment step.',
+    techStack: [
+      'C#',
+      'ASP.NET Core',
+      'Microservices',
+      'REST API',
+      'Entity Framework Core',
+      'SQL Server',
+      'Identity',
+      'React',
+      'Stripe'
+    ],
+    whatIBuilt: [
+      'Built parts of the product and checkout flow',
+      'Worked with multiple ASP.NET Core APIs in a microservices structure',
+      'Connected frontend views to backend services through REST API calls',
+      'Implemented flow from product selection to cart and checkout',
+      'Prepared the payment service for future Stripe integration'
+    ],
+    whatILearned: [
+      'Improved my understanding of microservices and service separation',
+      'Practiced designing APIs around separate business responsibilities',
+      'Learned how different services communicate in an e-commerce system',
+      'Gained experience with checkout flow, cart handling, identity, and order management',
+      'Understood the importance of keeping unfinished integrations clearly separated from completed functionality'
+    ]
+  }
+},
   {
     id: 1,
     title: 'PC Builder',
@@ -127,7 +181,10 @@ const projects: Project[] = [
         'Improved at aligning UX decisions with personal data privacy requirements'
       ]
     }
+    
   },
+
+
 ];
 
 const categories = ['All', 'Backend', 'Full Stack', 'Frontend'];
