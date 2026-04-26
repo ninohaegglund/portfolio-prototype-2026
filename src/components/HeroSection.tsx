@@ -29,7 +29,7 @@ const HeroSection = () => {
 
           {/* Subtitle */}
           <p className="text-xl md:text-2xl text-muted-foreground mb-4 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            .NET Developer
+            .NET Developer focused on backend, APIs and fullstack web applications
           </p>
 
           {/* Tech Stack */}

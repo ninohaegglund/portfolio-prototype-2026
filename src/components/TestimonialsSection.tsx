@@ -7,18 +7,6 @@ const testimonials = [
     role: "Automationsutvecklare, Digital Engine AB",
     avatar: "/images/tuan.png",
   },
-  {
-    quote: "Working with Nino was a game-changer for our project. His deep understanding of .NET Core and clean architecture principles helped us scale efficiently.",
-    author: "Anna Bergström",
-    role: "Engineering Manager, Digital Solutions",
-    avatar: "/placeholder.svg",
-  },
-  {
-    quote: "Nino's ability to mentor junior developers while driving complex technical projects is remarkable. A true asset to any development team.",
-    author: "Johan Andersson",
-    role: "Tech Lead, StartupHub",
-    avatar: "/placeholder.svg",
-  },
 ];
 
 const TestimonialsSection = () => {

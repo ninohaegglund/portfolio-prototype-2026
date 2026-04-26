@@ -2,7 +2,7 @@ import { Briefcase, Calendar } from 'lucide-react';
 
 const experiences = [
   {
-  role: '.NET Developer',
+  role: '.NET Developer Internship',
   company: 'Digital Engine AB',
   period: '2025 Dec - 2026 April',
   description: 'Developed automation solutions using C# within a cloud-based platform. Built and orchestrated task-based workflows for data processing and system integration.',
@@ -23,20 +23,13 @@ const experiences = [
     'Worked with SQL Server and Entity Framework',
     'Developed full-stack applications with modern web technologies'
   ],
-},
-  {
-    role: 'Junior Developer',
-    company: 'StartupHub Stockholm',
-    period: '2018 - 2020',
-    description: 'Developed web applications and APIs for various startup clients. Gained experience across the full development lifecycle.',
-    achievements: ['Delivered 10+ client projects', 'Learned Azure cloud services', 'Contributed to open-source projects'],
-  },
+}
 ];
 
 const certifications = [
-  { name: 'TBD', issuer: 'TBD', year: 'TBD' },
-  { name: 'TBD', issuer: 'TBD', year: 'TBD' },
-  { name: 'TBD', issuer: 'TBD', year: 'TBD' },
+  { name: '', issuer: '', year: '' },
+  { name: '', issuer: '', year: '' },
+  { name: '', issuer: '', year: '' },
 ];
 
 const ExperienceSection = () => {

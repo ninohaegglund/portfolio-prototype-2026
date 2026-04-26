@@ -3,6 +3,21 @@ import { Button } from '@/components/ui/button';
 import { ExternalLink, Github, ArrowRight } from 'lucide-react';
 
 const projects = [
+    {
+  id: 3,
+  title: 'Personal Job Application Manager',
+  description: 'A fullstack web application for searching, saving, and managing job applications using external job ad data, authentication, and structured application tracking.',
+  image: '/images/job-application-manager.png',
+  category: 'Backend',
+  tags: ['C#', '.NET', 'ASP.NET Core', 'Entity Framework Core', 'React', 'TypeScript', 'REST API', 'Authentication'],
+  outcomes: [
+    'Integrated external job search data through REST API calls',
+    'Built structured tracking for saved jobs and applications',
+    'Implemented authentication and user-specific application data'
+  ],
+  github: 'https://github.com/ninohaegglund/JobApplicationManager',
+  live: 'https://github.com/ninohaegglund/personal-job-application-manager',
+},
   {
     id: 1,
     title: 'PC Builder',
@@ -25,21 +40,11 @@ const projects = [
     image: '/images/alpha.png',
     category: 'Full Stack',
     tags: ['C#', 'SignalR', 'React', 'Azure Functions'],
-    outcomes: ['Real-time updates < 100ms', '50% faster insights', '200+ concurrent users'],
+    outcomes: ['Built project CRUD functionality', 'Implemented role-based task management', 'Created responsive dashboard views'],
     github: '#',
     live: '#',
   },
-  {
-    id: 3,
-    title: 'WPF Product Catalogue',
-    description: 'A WPF app to manage products with full CRUD functionality, search, and save/load to file',
-    image: '/images/wpf.png',
-    category: 'Backend',
-    tags: ['C#', 'WPF', 'MVVM', 'Entity Framework Core'],
-    outcomes: ['60% faster migrations', '30% cost reduction', '100+ successful deployments'],
-    github: 'https://github.com/ninohaegglund/ProductCatalogue_WPF',
-    live: 'https://github.com/ninohaegglund/ProductCatalogue_WPF',
-  },
+
   {
     id: 4,
     title: 'Daily check in',
@@ -47,7 +52,7 @@ const projects = [
     image: '/images/daily-check.png',
     category: 'Frontend',
     tags: ['ASP.NET Core', 'MVC', 'C#', 'EF Core', 'Identity'],
-    outcomes: ['3x throughput increase', 'Sub-10ms response time', '99.95% cache hit rate'],
+    outcomes: ['', '', ''],
     github: 'https://github.com/ninohaegglund/daily-checkin-api',
     live: 'https://daily-checkin-app.netlify.app/',
   },
