@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
+import ThemeToggle from './ThemeToggle';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -44,14 +45,17 @@ const Navigation = () => {
               {link.label}
             </a>
           ))}
+          <ThemeToggle />
           <Button variant="hero" size="sm">
             Hire Me
           </Button>
         </div>
 
         {/* Mobile Menu Toggle */}
+        <div className="md:hidden flex items-center gap-2">
+        <ThemeToggle />
         <button
-          className="md:hidden text-foreground"
+          className="text-foreground"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="Toggle menu"
         >
