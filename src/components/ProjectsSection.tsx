@@ -27,7 +27,7 @@ const projects: Project[] = [
    
   ],
   github: 'https://github.com/ninohaegglund/JobApplicationManager',
-  live: 'https://github.com/ninohaegglund/personal-job-application-manager',
+  live: 'https://jobmanagerpro.netlify.app/',
   caseStudy: {
     problem: 'Job searching across multiple sources was fragmented, and keeping track of applications, statuses, and related details became inconsistent and time-consuming.',
     solution: 'I built a fullstack application that centralizes job discovery and application tracking with authenticated, user-specific workflows and a clean data model for status updates.',
