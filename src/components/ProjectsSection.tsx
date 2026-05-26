@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { ExternalLink, Github, ArrowRight } from 'lucide-react';
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from '@/components/ui/carousel';
+import { ExternalLink, Github, ArrowLeft, ArrowRight } from 'lucide-react';
 import CaseStudyModal, { type ProjectCaseStudy } from '@/components/CaseStudyModal';
 
 type Project = ProjectCaseStudy & {
@@ -23,9 +24,7 @@ const projects: Project[] = [
   category: 'Backend',
   tags: ['C#', '.NET', 'ASP.NET Core', 'Entity Framework Core', 'React', 'TypeScript', 'REST API', 'Authentication'],
   outcomes: [
-    'Integrated external job search data through REST API calls',
-    'Built structured tracking for saved jobs and applications',
-    'Implemented authentication and user-specific application data'
+   
   ],
   github: 'https://github.com/ninohaegglund/JobApplicationManager',
   live: 'https://github.com/ninohaegglund/personal-job-application-manager',
@@ -63,9 +62,7 @@ const projects: Project[] = [
     'React'
   ],
   outcomes: [
-    'Built an end-to-end e-commerce flow from product selection to checkout',
-    'Implemented separate services for catalog, cart, identity, orders, and payments',
-    'Prepared payment service architecture for future Stripe integration'
+    
   ],
   github: 'https://github.com/ninohaegglund/ECommerce-platform',
   live: 'https://github.com/ninohaegglund/ECommerce-platform-client',
@@ -107,9 +104,7 @@ const projects: Project[] = [
     category: 'Full Stack',
     tags: ['ASP.NET Core', 'MVC', 'Web API', 'Entity Framework Core', 'SQL Server', 'C#', 'Bootstrap'],
     outcomes: [
-      'Built CRUD flows for computers, orders, and customers',
-      'Integrated MVC frontend with backend APIs',
-      'Worked with DTOs, validation, mapping, and database relations'
+     
     ],
     github: 'https://github.com/ninohaegglund/PCBuilder',
     live: '#',
@@ -136,7 +131,7 @@ const projects: Project[] = [
     image: '/images/alpha.png',
     category: 'Full Stack',
     tags: ['C#', 'SignalR', 'React', 'Azure Functions'],
-    outcomes: ['Built project CRUD functionality', 'Implemented role-based task management', 'Created responsive dashboard views'],
+    outcomes: [],
     github: '#',
     live: '#',
     caseStudy: {
@@ -193,6 +188,8 @@ const ProjectsSection = () => {
   const [activeCategory, setActiveCategory] = useState('All');
   const [isCaseStudyOpen, setIsCaseStudyOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [carouselApi, setCarouselApi] = useState<CarouselApi>();
+  const [activeSlide, setActiveSlide] = useState(0);
 
   const handleCaseStudyOpen = (project: Project) => {
     setSelectedProject(project);
@@ -211,11 +208,35 @@ const ProjectsSection = () => {
     ? projects
     : projects.filter(p => p.category === activeCategory);
 
+  useEffect(() => {
+    if (!carouselApi) {
+      return;
+    }
+
+    const updateActiveSlide = () => {
+      setActiveSlide(carouselApi.selectedScrollSnap());
+    };
+
+    updateActiveSlide();
+    carouselApi.on('select', updateActiveSlide);
+    carouselApi.on('reInit', updateActiveSlide);
+
+    return () => {
+      carouselApi.off('select', updateActiveSlide);
+      carouselApi.off('reInit', updateActiveSlide);
+    };
+  }, [carouselApi]);
+
+  useEffect(() => {
+    setActiveSlide(0);
+    carouselApi?.scrollTo(0);
+  }, [activeCategory, carouselApi]);
+
   return (
-    <section id="projects" className="py-28 section-alt">
+    <section id="projects" className="py-20 section-alt">
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10">
           <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">
             Featured <span className="text-gradient">Projects</span>
           </h2>
@@ -225,7 +246,7 @@ const ProjectsSection = () => {
         </div>
 
         {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
+        <div className="flex flex-wrap justify-center gap-3 mb-8">
           {categories.map((category) => (
             <Button
               key={category}
@@ -239,95 +260,179 @@ const ProjectsSection = () => {
           ))}
         </div>
 
-        {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 gap-8">
-          {filteredProjects.map((project, index) => (
-            <div
-              key={project.id}
-              className="group zen-card overflow-hidden hover:border-primary/40 animate-fade-in-up"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              {/* Project Image */}
-              <div className="relative h-48 bg-secondary overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={`${project.title} preview`}
-                  className="absolute inset-0 w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105"
-                  loading="lazy"
-                  onError={(e) => { e.currentTarget.style.display = 'none'; }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-card/80" />
-                <div className="absolute top-4 left-4">
-                  <span className="px-3 py-1 rounded-full text-xs bg-primary/20 text-primary/100 border border-primary/30">
-                    {project.category}
-                  </span>
-                </div>
-              </div>
+        {/* Projects Carousel */}
+        <div className="mx-auto max-w-6xl">
+          <Carousel
+            setApi={setCarouselApi}
+            opts={{
+              align: 'center',
+              loop: filteredProjects.length > 1,
+            }}
+            className="animate-fade-in-up"
+          >
+            <CarouselContent className="-ml-4 md:-ml-6">
+              {filteredProjects.map((project, index) => {
+                const visibleTags = project.tags.slice(0, 6);
+                const remainingTagCount = project.tags.length - visibleTags.length;
+                const visibleOutcomes = project.outcomes.filter(Boolean).slice(0, 2);
 
-              {/* Project Content */}
-              <div className="p-7">
-                <h3 className="font-display text-xl font-bold mb-3 group-hover:text-primary transition-colors">
-                  {project.title}
-                </h3>
-                <p className="text-muted-foreground text-sm mb-4">
-                  {project.description}
-                </p>
+                return (
+                  <CarouselItem
+                    key={project.id}
+                    className="basis-[88%] pl-4 sm:basis-[76%] md:basis-[68%] md:pl-6 lg:basis-[58%]"
+                  >
+                    <article className="group zen-card flex h-[660px] flex-col overflow-hidden bg-card/95 hover:border-primary/40 sm:h-[620px] lg:h-[600px]">
+                      <div className="relative h-56 shrink-0 overflow-hidden bg-secondary sm:h-60">
+                        <img
+                          src={project.image}
+                          alt={`${project.title} preview`}
+                          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          loading={index === 0 ? 'eager' : 'lazy'}
+                          onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-card/5 to-card/85" />
+                        <div className="absolute left-4 top-4 flex items-center gap-2">
+                          <span className="rounded-full border border-primary/30 bg-primary/15 px-3 py-1 text-xs text-primary">
+                            {project.category}
+                          </span>
+                          <span className="rounded-full border border-border/60 bg-card/70 px-3 py-1 text-xs text-muted-foreground backdrop-blur-sm">
+                            {String(index + 1).padStart(2, '0')} / {String(filteredProjects.length).padStart(2, '0')}
+                          </span>
+                        </div>
+                      </div>
 
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-2 py-1 rounded text-xs bg-secondary text-muted-foreground"
-                    >
-                      {tag}
-                    </span>
+                      <div className="flex min-h-0 flex-1 flex-col p-6 sm:p-7">
+                        <p className="mb-2 text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
+                          Featured Project
+                        </p>
+                        <h3 className="font-display min-h-[4rem] text-2xl font-bold leading-tight transition-colors group-hover:text-primary">
+                          {project.title}
+                        </h3>
+                        <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-muted-foreground">
+                          {project.description}
+                        </p>
+
+                        <div className="mt-4 flex flex-wrap gap-2">
+                          {visibleTags.map((tag) => (
+                            <span
+                              key={tag}
+                              className="rounded bg-secondary px-2 py-1 text-xs text-muted-foreground"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                          {remainingTagCount > 0 && (
+                            <span className="rounded border border-border/70 px-2 py-1 text-xs text-muted-foreground">
+                              +{remainingTagCount}
+                            </span>
+                          )}
+                        </div>
+
+                        {visibleOutcomes.length > 0 && (
+                          <div className="mt-5">
+                            <p className="mb-2 text-xs uppercase tracking-wider text-muted-foreground">Key Outcomes</p>
+                            <div className="space-y-1.5">
+                              {visibleOutcomes.map((outcome) => (
+                                <p
+                                  key={outcome}
+                                  className="rounded-md border border-primary/20 bg-primary/10 px-3 py-1.5 text-xs leading-snug text-primary"
+                                >
+                                  {outcome}
+                                </p>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        <div className="mt-auto flex flex-wrap items-center gap-4 pt-6">
+                          <a
+                            href={project.github}
+                            className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                          >
+                            <Github size={16} />
+                            Code
+                          </a>
+                          <a
+                            href={project.live}
+                            className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                          >
+                            <ExternalLink size={16} />
+                            Live Demo
+                          </a>
+                          <button
+                            type="button"
+                            onClick={() => handleCaseStudyOpen(project)}
+                            className="ml-auto flex items-center gap-2 text-sm text-primary transition-colors hover:text-primary/80"
+                          >
+                            Case Study
+                            <ArrowRight size={16} />
+                          </button>
+                        </div>
+                      </div>
+                    </article>
+                  </CarouselItem>
+                );
+              })}
+            </CarouselContent>
+
+            {filteredProjects.length > 1 && (
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+                <Button
+                  type="button"
+                  variant="heroOutline"
+                  size="icon"
+                  onClick={() => carouselApi?.scrollPrev()}
+                  aria-label="Previous project"
+                >
+                  <ArrowLeft />
+                </Button>
+
+                <div className="flex items-center gap-2">
+                  {filteredProjects.map((project, index) => (
+                    <button
+                      key={project.id}
+                      type="button"
+                      onClick={() => carouselApi?.scrollTo(index)}
+                      className={`h-2.5 rounded-full transition-all duration-300 ${
+                        activeSlide === index ? 'w-8 bg-primary' : 'w-2.5 bg-border hover:bg-muted-foreground/50'
+                      }`}
+                      aria-label={`Show ${project.title}`}
+                      aria-current={activeSlide === index ? 'true' : undefined}
+                    />
                   ))}
                 </div>
 
-                {/* Outcomes */}
-                <div className="mb-6">
-                  <p className="text-xs text-muted-foreground uppercase tracking-wider mb-2">Key Outcomes</p>
-                  <div className="flex flex-wrap gap-2">
-                    {project.outcomes.map((outcome) => (
-                      <span
-                        key={outcome}
-                        className="px-2 py-1 rounded text-xs bg-primary/10 text-primary border border-primary/20"
-                      >
-                        {outcome}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Actions */}
-                <div className="flex gap-3">
-                  <a
-                    href={project.github}
-                    className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    <Github size={16} />
-                    Code
-                  </a>
-                  <a
-                    href={project.live}
-                    className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    <ExternalLink size={16} />
-                    Live Demo
-                  </a>
-                  <button
-                    type="button"
-                    onClick={() => handleCaseStudyOpen(project)}
-                    className="flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors ml-auto"
-                  >
-                    Case Study
-                    <ArrowRight size={16} />
-                  </button>
-                </div>
+                <Button
+                  type="button"
+                  variant="heroOutline"
+                  size="icon"
+                  onClick={() => carouselApi?.scrollNext()}
+                  aria-label="Next project"
+                >
+                  <ArrowRight />
+                </Button>
               </div>
+            )}
+          </Carousel>
+
+          {filteredProjects.length > 1 && (
+            <div className="mx-auto mt-7 flex max-w-5xl gap-2 overflow-x-auto rounded-full border border-border/60 bg-card/50 p-2 backdrop-blur-sm">
+              {filteredProjects.map((project, index) => (
+                <button
+                  key={project.id}
+                  type="button"
+                  onClick={() => carouselApi?.scrollTo(index)}
+                  className={`max-w-[15rem] shrink-0 truncate rounded-full px-4 py-2 text-left text-xs transition-colors ${
+                    activeSlide === index
+                      ? 'bg-foreground text-background'
+                      : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
+                  }`}
+                >
+                  {project.title}
+                </button>
+              ))}
             </div>
-          ))}
+          )}
         </div>
 
         <CaseStudyModal
